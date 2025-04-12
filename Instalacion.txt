@@ -1,0 +1,104 @@
+// Pasos para la instalación del proyecto de CEFAEMPRESA //
+
+
+( 1 )------------------------------------------------------------------------------------------------------------------------------
+
+Este proyecto requiere de las siguientes tecnologías las cuales puedes obtener de manera individual o descargando algún gestor de servicios como lo serian XAMPP o Docker.
+
+	-> php 8.2
+	-> node 
+	-> composer
+	-> git
+	-> MySQL
+	-> apache
+
+
+( 2 )------------------------------------------------------------------------------------------------------------------------------
+
+Una ves tengas las tecnologías necesarias clona el proyecto de CEFAEMPRESA en la carpeta correspondiente para ser ejecutadas con el gestor de servicios, en caso de XAMPP esta en "c:\xampp\htdocs/", para clonarlo usa el siguente comando en una terminal.
+
+git clone https://github.com/Andres020Mi/CEFAEMPRESA.git
+
+-> en caso de no estar dentro del la carpeta adecuada te puede mostrar un error para moverte entre carpetas puedes ejecutar el comando "cd" y la ruta de esa carpeta ejemplo "c:\XAMPP\htdocs".
+
+
+
+( 3 )------------------------------------------------------------------------------------------------------------------------------
+
+una ves clonado el proyecto puedes ingresar a su carpeta usando el (cd "nombre de el proyecto") en este caso la carpeta se llamara CEFAEMPRESA, tambien pueden ejecutar el comando "dir" para poder visualizar las carpetas disponibles.
+
+cd CEFAEMPRESA
+
+
+
+( 4 )------------------------------------------------------------------------------------------------------------------------------
+
+Cuando te encunetres dentro de la carpeta y ejecutes "dir" podras ver todas las mayoría de las carpetas de laravel 12, para iniciar con las dependencias que necesita laravel para funcionar se debe de ejecutar el siguente comando.
+
+composer install
+
+
+
+( 5 )------------------------------------------------------------------------------------------------------------------------------
+
+una ves finalizado el composer install pueden ejecutar el comando que se requiere para el uso de node ya que usamos tecnologías como vite, se instala con este comando
+
+npm install
+
+
+
+( 6 )------------------------------------------------------------------------------------------------------------------------------
+
+una ves estos comandos terminen de ejecutarse dentro del proyecto de laravel se necesitaría ejecutar uno para poder generar una copia del .env.exmaple que generara un archivo llamado .env , este archivo es el que tiene variables las cuales almacenan diferentes configuraciones y información necesaria para el funcionamiento de laravel, con el sigunete comando pueden crear este archivo
+
+cp .env.example .env
+
+( 6 )------------------------------------------------------------------------------------------------------------------------------
+
+laravel requiere de la creación de una llave en el archivo .env para su buen funcionamiento y para crear esta llave existe el siguente comando 
+
+php artisan key:generate
+
+
+( 6 )------------------------------------------------------------------------------------------------------------------------------
+
+en caso de querer desplegar el proyecto rápidamente puedes ejecutar el siguente comando para crear una base de datos SQLite y poder migrar las tablas para que el proyecto funcione lo mas rápido posible
+
+type nul > database\database.sqlite
+
+en caso de que quieras agregar una base de datos MySQL posgres etc deves de configurarlo en el archivo .env
+
+DB_CONNECTION=sqlite
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+
+
+
+( 7 )------------------------------------------------------------------------------------------------------------------------------
+
+
+al estar usando la librería de nwidart/laravel-modules v12 separamos las migraciones por modulos por lo que debe de haber un orden de migraciones para que todo funcione de manera correcta asi que este será el orden en el que se ejecuten los modulos
+
+
+1 -> para migrar las tablas bases de laravel que no se encuentran en los modulos seria el siguente comando
+
+	php artisan migrate
+
+2 -> El modulo que contiene la administración de usuarios y tiene las migraciones necesarias para que las personas tenga su información se ejecuta asi 
+
+	php artisan module:migrate Users
+	
+
+( 8)-------------------------------------------------------------------------------------------------------------------------------------
+
+una ves que las migraciones esten echas puedes ejecutar el proyecto en modo developer con el sigunete comando ya que nos encontramos en laravel 12 y este nos permite ejecutar npm run dev y php artisan serve en un solo comando
+
+
+composer run dev
+
+
+		
