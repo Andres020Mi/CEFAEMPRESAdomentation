@@ -132,11 +132,7 @@ El proyecto utiliza la librería **nwidart/laravel-modules v12**, que organiza l
 php artisan migrate
 ```
 
-2. **Migrar el módulo de Usuarios** (contiene las tablas para la gestión de usuarios):
 
-```bash
-php artisan module:migrate Users
-```
 
 ### 9. Desplegar el Proyecto
 
