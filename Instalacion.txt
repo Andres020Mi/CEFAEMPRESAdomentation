@@ -1,104 +1,161 @@
-// Pasos para la instalación del proyecto de CEFAEMPRESA //
+# Instrucciones de Instalación del Proyecto CEFAEMPRESA
 
+Esta guía detalla los pasos necesarios para instalar y configurar el proyecto **CEFAEMPRESA**, una aplicación desarrollada con **Laravel 12**. Sigue cuidadosamente cada paso para garantizar una configuración exitosa.
 
-( 1 )------------------------------------------------------------------------------------------------------------------------------
+---
 
-Este proyecto requiere de las siguientes tecnologías las cuales puedes obtener de manera individual o descargando algún gestor de servicios como lo serian XAMPP o Docker.
+## Requisitos Previos
 
-	-> php 8.2
-	-> node 
-	-> composer
-	-> git
-	-> MySQL
-	-> apache
+El proyecto requiere las siguientes tecnologías. Puedes instalarlas individualmente o usar un gestor de servicios como **XAMPP** o **Docker** para facilitar el proceso:
 
+- **PHP** 8.2 o superior
+- **Node.js** (con npm)
+- **Composer** (gestor de dependencias de PHP)
+- **Git** (para clonar el repositorio)
+- **MySQL** (o SQLite para una configuración rápida)
+- **Apache** (o el servidor web integrado de Laravel)
 
-( 2 )------------------------------------------------------------------------------------------------------------------------------
+Asegúrate de que todas estas herramientas estén instaladas y configuradas correctamente antes de continuar.
 
-Una ves tengas las tecnologías necesarias clona el proyecto de CEFAEMPRESA en la carpeta correspondiente para ser ejecutadas con el gestor de servicios, en caso de XAMPP esta en "c:\xampp\htdocs/", para clonarlo usa el siguente comando en una terminal.
+---
 
+## Pasos de Instalación
+
+### 1. Clonar el Repositorio
+
+Clona el repositorio del proyecto en la carpeta adecuada para tu entorno. Si usas **XAMPP**, esta carpeta suele ser `C:\xampp\htdocs`. Abre una terminal y ejecuta el siguiente comando:
+
+```bash
 git clone https://github.com/Andres020Mi/CEFAEMPRESA.git
+```
 
--> en caso de no estar dentro del la carpeta adecuada te puede mostrar un error para moverte entre carpetas puedes ejecutar el comando "cd" y la ruta de esa carpeta ejemplo "c:\XAMPP\htdocs".
+> **Nota**: Si no estás en la carpeta correcta, usa el comando `cd` para navegar a la ubicación deseada, por ejemplo:
+> ```bash
+> cd C:\xampp\htdocs
+> ```
 
+### 2. Acceder a la Carpeta del Proyecto
 
+Una vez clonado el repositorio, ingresa a la carpeta del proyecto con el siguiente comando:
 
-( 3 )------------------------------------------------------------------------------------------------------------------------------
-
-una ves clonado el proyecto puedes ingresar a su carpeta usando el (cd "nombre de el proyecto") en este caso la carpeta se llamara CEFAEMPRESA, tambien pueden ejecutar el comando "dir" para poder visualizar las carpetas disponibles.
-
+```bash
 cd CEFAEMPRESA
+```
 
+Puedes usar el comando `dir` (en Windows) o `ls` (en Linux/Mac) para verificar las carpetas disponibles:
 
+```bash
+dir
+```
 
-( 4 )------------------------------------------------------------------------------------------------------------------------------
+### 3. Instalar Dependencias de PHP
 
-Cuando te encunetres dentro de la carpeta y ejecutes "dir" podras ver todas las mayoría de las carpetas de laravel 12, para iniciar con las dependencias que necesita laravel para funcionar se debe de ejecutar el siguente comando.
+Instala las dependencias de **Composer** necesarias para Laravel ejecutando:
 
+```bash
 composer install
+```
 
+Este comando descargará e instalará todas las librerías especificadas en el archivo `composer.json`.
 
+### 4. Instalar Dependencias de Node.js
 
-( 5 )------------------------------------------------------------------------------------------------------------------------------
+El proyecto utiliza **Vite** para gestionar los activos frontend. Instala las dependencias de Node.js con:
 
-una ves finalizado el composer install pueden ejecutar el comando que se requiere para el uso de node ya que usamos tecnologías como vite, se instala con este comando
-
+```bash
 npm install
+```
 
+### 5. Configurar el Archivo de Entorno
 
+Laravel requiere un archivo `.env` para almacenar configuraciones como la conexión a la base de datos. Crea una copia del archivo `.env.example` con el siguiente comando:
 
-( 6 )------------------------------------------------------------------------------------------------------------------------------
-
-una ves estos comandos terminen de ejecutarse dentro del proyecto de laravel se necesitaría ejecutar uno para poder generar una copia del .env.exmaple que generara un archivo llamado .env , este archivo es el que tiene variables las cuales almacenan diferentes configuraciones y información necesaria para el funcionamiento de laravel, con el sigunete comando pueden crear este archivo
-
+```bash
 cp .env.example .env
+```
 
-( 6 )------------------------------------------------------------------------------------------------------------------------------
+> **Nota**: En Windows, si el comando `cp` no funciona, puedes copiar manualmente el archivo `.env.example` y renombrarlo a `.env`.
 
-laravel requiere de la creación de una llave en el archivo .env para su buen funcionamiento y para crear esta llave existe el siguente comando 
+### 6. Generar la Clave de Aplicación
 
+Genera una clave única para la aplicación Laravel ejecutando:
+
+```bash
 php artisan key:generate
+```
 
+Esta clave se almacenará en el archivo `.env` y es necesaria para la seguridad de la aplicación.
 
-( 6 )------------------------------------------------------------------------------------------------------------------------------
+### 7. Configurar la Base de Datos
 
-en caso de querer desplegar el proyecto rápidamente puedes ejecutar el siguente comando para crear una base de datos SQLite y poder migrar las tablas para que el proyecto funcione lo mas rápido posible
+El proyecto puede usar **SQLite** para una configuración rápida o **MySQL** (u otra base de datos) según tus necesidades.
 
+#### Opción 1: Usar SQLite
+
+Crea una base de datos SQLite vacía con el siguiente comando:
+
+```bash
 type nul > database\database.sqlite
+```
 
-en caso de que quieras agregar una base de datos MySQL posgres etc deves de configurarlo en el archivo .env
+Asegúrate de que el archivo `.env` tenga la siguiente configuración:
 
+```env
 DB_CONNECTION=sqlite
 # DB_HOST=127.0.0.1
 # DB_PORT=3306
 # DB_DATABASE=laravel
 # DB_USERNAME=root
 # DB_PASSWORD=
+```
 
+#### Opción 2: Usar MySQL
 
+Si prefieres MySQL, crea una base de datos en tu servidor MySQL y configura el archivo `.env` con los detalles correspondientes, por ejemplo:
 
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base_de_datos
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+```
 
-( 7 )------------------------------------------------------------------------------------------------------------------------------
+### 8. Ejecutar las Migraciones
 
+El proyecto utiliza la librería **nwidart/laravel-modules v12**, que organiza las migraciones por módulos. Sigue este orden para migrar las tablas correctamente:
 
-al estar usando la librería de nwidart/laravel-modules v12 separamos las migraciones por modulos por lo que debe de haber un orden de migraciones para que todo funcione de manera correcta asi que este será el orden en el que se ejecuten los modulos
+1. **Migrar las tablas base de Laravel**:
 
+```bash
+php artisan migrate
+```
 
-1 -> para migrar las tablas bases de laravel que no se encuentran en los modulos seria el siguente comando
+2. **Migrar el módulo de Usuarios** (contiene las tablas para la gestión de usuarios):
 
-	php artisan migrate
+```bash
+php artisan module:migrate Users
+```
 
-2 -> El modulo que contiene la administración de usuarios y tiene las migraciones necesarias para que las personas tenga su información se ejecuta asi 
+### 9. Desplegar el Proyecto
 
-	php artisan module:migrate Users
-	
+Para ejecutar el proyecto en modo desarrollo, Laravel 12 permite combinar los comandos `npm run dev` y `php artisan serve` en uno solo. Usa:
 
-( 8)-------------------------------------------------------------------------------------------------------------------------------------
-
-una ves que las migraciones esten echas puedes ejecutar el proyecto en modo developer con el sigunete comando ya que nos encontramos en laravel 12 y este nos permite ejecutar npm run dev y php artisan serve en un solo comando
-
-
+```bash
 composer run dev
+```
 
+Esto iniciará el servidor de desarrollo y compilará los activos frontend. El proyecto estará disponible en `http://localhost:8000` (o el puerto especificado).
 
-		
+---
+
+## Notas Adicionales
+
+- Asegúrate de que el servidor Apache o el servidor integrado de Laravel esté activo.
+- Si encuentras errores, verifica que las versiones de PHP, Node.js y Composer sean compatibles con Laravel 12.
+- Revisa el archivo `.env` para ajustes adicionales según tu entorno (por ejemplo, configuración de correo o almacenamiento).
+
+---
+
+¡Listo! Ahora el proyecto **CEFAEMPRESA** debería estar configurado y funcionando correctamente.
