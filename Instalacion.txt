@@ -132,6 +132,15 @@ El proyecto utiliza la librería **nwidart/laravel-modules v12**, que organiza l
 php artisan migrate
 ```
 
+2. **Migrar los seeders en caso de ser necesarios**:
+
+
+```bash
+php artisan db:seed
+```
+
+
+
 
 
 ### 9. Desplegar el Proyecto
